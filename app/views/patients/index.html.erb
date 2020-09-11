@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Patients</h1>
+<p>
+  Download:
+  <%= link_to "CSV", patients_path(format: "csv") %> |
+  <%= link_to "Excel", patients_path(format: "xls") %>
+</p>
+<table>
+  <thead>
+    <tr>
+      <th>Nama</th>
+      <th>No kamar</th>
+      <th>No rm</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @patients.each do |patient| %>
+      <tr>
+        <td><%= patient.nama %></td>
+        <td><%= patient.no_kamar %></td>
+        <td><%= patient.no_rm %></td>
+        <td><%= link_to 'Show', patient %></td>
+        <td><%= link_to 'Edit', edit_patient_path(patient) %></td>
+        <td><%= link_to 'Destroy', patient, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= form_tag import_patients_path, multipart: true do %>
+  <%= file_field_tag :file%>
+  <%= submit_tag "Import"%>
+<% end %>
+
+<br>
+
+<%= link_to 'New Patient', new_patient_path %>
