@@ -8,6 +8,7 @@ class PatientsController < ApplicationController
     filename = 
     respond_to do |format|
       format.html
+      format.json { render json: PatientsDatatable.new(view_context) }
       format.csv { send_data @patients.to_csv }
       format.xls { headers["Content-Disposition"] = "attachment; filename=\"#{tes.xls}\"" }
     end

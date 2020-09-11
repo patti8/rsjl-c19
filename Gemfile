@@ -11,6 +11,12 @@ gem "roo", "~> 2.8.0"
 gem "iconv", "~> 1.0.3"
 gem 'roo-xls'
 gem 'axlsx_rails'
+group :assets do
+  gem 'jquery-datatables-rails', '~> 3.4.0'
+  gem 'jquery-ui-rails'
+end
+
+gem 'will_paginate'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets

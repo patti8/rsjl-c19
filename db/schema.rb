@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_11_113820) do
+ActiveRecord::Schema.define(version: 2020_09_11_134915) do
 
   create_table "patients", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "nama"
@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2020_09_11_113820) do
     t.string "no_rm"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "nik"
+    t.bigint "nik"
     t.datetime "tgl_lahir"
     t.string "no_hp"
     t.integer "umur"
@@ -28,6 +28,8 @@ ActiveRecord::Schema.define(version: 2020_09_11_113820) do
     t.string "pekerjaan"
     t.datetime "tgl_masuk"
     t.datetime "tgl_keluar"
+    t.string "diagnosa"
+    t.string "komorbid"
   end
 
 end

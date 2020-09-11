@@ -6,12 +6,24 @@
   <%= link_to "CSV", patients_path(format: "csv") %> |
   <%= link_to "Excel", patients_path(format: "xls") %>
 </p>
-<table>
+<table id="patients" class="display" data-source="<%= patients_url(format: "json")%>">
   <thead>
     <tr>
+      <th>ID</th>
       <th>Nama</th>
       <th>No kamar</th>
-      <th>No rm</th>
+      <th>No RM</th>
+      <th>Nik</th>
+      <th>Tanggal Lahir</th>
+      <th>No. Hp</th>
+      <th>Agama/th>
+      <th>Jenis Kelamin</th>
+      <th>Alamat</th>
+      <th>Pekerjaan</th>
+      <th>Tanggal Masuk</th>
+      <th>Tanggal Keluar</th>
+      <th>Diagnosa</th>
+      <th>Komorbid</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -19,9 +31,21 @@
   <tbody>
     <% @patients.each do |patient| %>
       <tr>
+        <td><%= patient.id %></td>
         <td><%= patient.nama %></td>
         <td><%= patient.no_kamar %></td>
         <td><%= patient.no_rm %></td>
+        <td><%= patient.nik %></td>
+        <td><%= patient.tgl_lahir%></td>
+        <td><%= patient.no_hp %></td>
+        <td><%= patient.agama%></td>
+        <td><%= patient.jenis_kelamin%></td>
+        <td><%= patient.alamat %></td>
+        <td><%= patient.pekerjaan %></td>
+        <td><%= patient.tgl_masuk%></td>
+        <td><%= patient.tgl_keluar%></td>
+        <td><%= patient.diagnosa %></td>
+        <td><%= patient.komorbid%></td>
         <td><%= link_to 'Show', patient %></td>
         <td><%= link_to 'Edit', edit_patient_path(patient) %></td>
         <td><%= link_to 'Destroy', patient, method: :delete, data: { confirm: 'Are you sure?' } %></td>
