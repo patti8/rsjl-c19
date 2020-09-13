@@ -1,12 +1,64 @@
-<p id="notice"><%= notice %></p>
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+ <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <h1 class="h2">Data Pasien Covid-19</h1>
+  <p id="notice"><%= notice %></p>
+  <div class="btn-toolbar mb-2 mb-md-0">
+    <div class="btn-group mr-2">
+      <div class="btn btn-sm btn-outline-secondary">Export</div>
+      <%= link_to "CSV", patients_path(format: "csv"), class: "btn btn-sm btn-outline-secondary" %> 
+      <%= link_to "Excel", patients_path(format: "xls"), class: "btn btn-sm btn-outline-secondary" %>
+    </div>
+    <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+      <span data-feather="calendar"></span>
+      This week 
+    </button>
+  </div>
+</div>
+   
+<div class="container">
+  <div class="row">
+      <div class="col col-sm-3">
+      <%= search_form_for @search do |f| %>
+        <div class="form-group">
+          <%= f.label :nama_cont, "Nama Pasien" %>
+          <%= f.text_field :nama_cont, class: "form-control" %>
+        </div>
 
-<h1>Patients</h1>
-<p>
-  Download:
-  <%= link_to "CSV", patients_path(format: "csv") %> |
-  <%= link_to "Excel", patients_path(format: "xls") %>
-</p>
-<table id="patients" class="display" data-source="<%= patients_url(format: "json")%>">
+        <div class="form-group">
+          <%= f.label :no_rm_cont, "No. RM" %>
+          <%= f.text_field :no_rm_cont, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="col col-sm-2">
+        <div class="form-group">
+          <%= f.label :tgl_masuk_cont, "Tanggal Masuk" %>
+          <%= f.text_field :tgl_masuk_cont, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :tgl_keluar_cont, "Tanggal Keluar" %>
+          <%= f.text_field :tgl_keluar_cont, class: "form-control" %>
+        </div>
+      </div>
+
+  </div>
+  <br>
+  <div class="row">
+    <div class="col col-sm-4">
+       <%= f.submit "Search", class: "btn btn-primary btn-sm" %>
+      <% end %> 
+          <%= link_to "Reset", root_path, class:"btn btn-danger btn-sm" %>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+ <%= will_paginate  %> 
+
+ <div class="table-responsive"> 
+  <table id="dttb" class="table table-striped table-sm table-hover">
   <thead>
     <tr>
       <th>ID</th>
@@ -29,36 +81,32 @@
   </thead>
 
   <tbody>
-    <% @patients.each do |patient| %>
+  <% @patients.each do |sortable| %>
       <tr>
-        <td><%= patient.id %></td>
-        <td><%= patient.nama %></td>
-        <td><%= patient.no_kamar %></td>
-        <td><%= patient.no_rm %></td>
-        <td><%= patient.nik %></td>
-        <td><%= patient.tgl_lahir%></td>
-        <td><%= patient.no_hp %></td>
-        <td><%= patient.agama%></td>
-        <td><%= patient.jenis_kelamin%></td>
-        <td><%= patient.alamat %></td>
-        <td><%= patient.pekerjaan %></td>
-        <td><%= patient.tgl_masuk%></td>
-        <td><%= patient.tgl_keluar%></td>
-        <td><%= patient.diagnosa %></td>
-        <td><%= patient.komorbid%></td>
-        <td><%= link_to 'Show', patient %></td>
-        <td><%= link_to 'Edit', edit_patient_path(patient) %></td>
-        <td><%= link_to 'Destroy', patient, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= sortable.id %></td>
+        <td><%= sortable.nama %></td>
+        <td><%= sortable.no_kamar %></td>
+        <td><%= sortable.no_rm %></td>
+        <td><%= sortable.nik %></td>
+        <td><%= sortable.tgl_lahir%></td>
+        <td><%= sortable.no_hp %></td>
+        <td><%= sortable.agama%></td>
+        <td><%= sortable.jenis_kelamin%></td>
+        <td><%= sortable.alamat %></td>
+        <td><%= sortable.pekerjaan %></td>
+        <td><%= sortable.tgl_masuk%></td>
+        <td><%= sortable.tgl_keluar%></td>
+        <td><%= sortable.diagnosa %></td>
+        <td><%= sortable.komorbid%></td>
+        <td><%= link_to "show", @patient %></td>
+        <td><%= link_to  "Edit", edit_patient_path(sortable) %></td>
+        <td><%= link_to  "Delete", sortable, method: :delete, data: { confirm: 'Anda yakin mau dihapus?'} %></td>
       </tr>
-    <% end %>
+  <% end %>
   </tbody>
 </table>
+</div>
 
-<%= form_tag import_patients_path, multipart: true do %>
-  <%= file_field_tag :file%>
-  <%= submit_tag "Import"%>
-<% end %>
+ <%= will_paginate  %> 
 
-<br>
-
-<%= link_to 'New Patient', new_patient_path %>
+</main>
