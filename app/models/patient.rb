@@ -34,10 +34,12 @@ class Patient < ApplicationRecord
         end
       end
 
-        # CSV.foreach(file.path, headers: true) do |row|
-        #     patient = find_by_id(row["id"]) || new
-        #     patient.attributes = row.to_hash.slice(*accessible_attributes)
-        #     patient.save!
-        # end
+      def self.search(search)
+        if search
+          where('name LIKE ?', "%#{search}%")
+        else
+          scoped
+        end
+      end
 
 end

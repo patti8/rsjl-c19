@@ -4,8 +4,10 @@ class PatientsController < ApplicationController
   # GET /patients
   # GET /patients.json
   def index
-    @patients = Patient.all
-    filename = 
+    @search = Patient.ransack(params[:q])
+    @patients = @search.result.paginate(:per_page => 5, :page => params[:page])
+    # @patients = Patient.all.paginate(:per_page => 5, :page => params[:page])
+    # filename = 
     respond_to do |format|
       format.html
       format.json { render json: PatientsDatatable.new(view_context) }
@@ -82,5 +84,13 @@ class PatientsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def patient_params
       params.require(:patient).permit(:nama, :no_kamar, :no_rm)
+    end
+
+    def sort_column
+      Patient.column_names.include?(params[:sort]) ? params[:sort] : "name"
+    end
+    
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     end
 end
