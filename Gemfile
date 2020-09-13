@@ -16,7 +16,8 @@ gem 'jquery-rails'
 gem 'will_paginate'
 gem 'bootstrap', '~> 5.0.0.alpha1'
 gem 'ransack'
-
+gem 'devise'
+gem 'bcrypt', '~> 3.1', '>= 3.1.12'
 
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
